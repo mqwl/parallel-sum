@@ -73,28 +73,3 @@ unsigned sum_loc_reduce (const unsigned* V, size_t n) {
     }
     return s;
 }
-
-// using namespace std::chrono;
-
-// auto generate(size_t n) {
-//     std::vector<unsigned> v(n);
-//     for (size_t i = 0; i < n; i++) {
-//         v[i] = i;
-//     }
-//     return v;
-// }
-// int main() {
-//     constexpr size_t N = 1 << 22;
-//     auto input = generate(N);
-//     {
-//         auto t1 = steady_clock::now();
-//         auto s1 = sum_loc(input.data(), input.size());
-//         auto t2 = steady_clock::now();
-//         std::cout << "\nsum_loc: " << std::hex << s1 << ", time: " << std::dec << duration_cast<milliseconds>(t2-t1).count();
-//         t1 = steady_clock::now();
-//         s1 = sum_loc_reduce(input.data(), input.size());
-//         t2 = steady_clock::now();
-//         std::cout << "\nsum_loc_reduce: " << std::hex << s1 << ", time: " << std::dec << duration_cast<milliseconds>(t2-t1).count();
-//     }
-//     return 0;
-// }
