@@ -4,8 +4,11 @@
 #include <vector>
 #include <thread>
 #include <iomanip>
+#include <condition_variable>
 #include "loc.hpp"
 #include "sums.h"
+#include "barrier.hpp"
+#include "conf.h"
 
 
 #define SUM_COMMAND(NAME)   { #NAME, sum_ ## NAME }
@@ -86,7 +89,8 @@ int main() {
 		SUM_COMMAND (rr_fs),
 		SUM_COMMAND (rr_fs2),
 		SUM_COMMAND (loc),
-		SUM_COMMAND (loc_reduce)
+		SUM_COMMAND (loc_reduce),
+		SUM_COMMAND (reduce_cpp)
 	};
 
 	std::cout << "Algorithm,Nthreads,Time(ms),SpeedUp,Efficiency,Result\n";

@@ -4,6 +4,7 @@
 #include <mutex>
 #include <chrono>
 #include "loc.hpp"
+#include "conf.h"
 
 
 unsigned sum_loc (const unsigned* V, size_t n) {

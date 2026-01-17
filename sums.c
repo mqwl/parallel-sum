@@ -3,6 +3,8 @@
 #include <omp.h>
 #include <stdlib.h>
 #include "sums.h"
+#include "conf.h"
+// в <thread> есть std::hardware_destructive_interference_size
 
 unsigned sum_seq(const unsigned* V, size_t n) {
     unsigned res = 0;
@@ -75,11 +77,11 @@ unsigned sum_rr_fs2(const unsigned* V, size_t n) {
         for (size_t i = t; i < n; i += T) {
             nn += V[i];
         }
-        partial[t].v = nn;
+        partial[t].u = nn;
     }
     unsigned s = 0;
     for (size_t t = 0; t < T; ++t) {
-        s += partial[t].v;
+        s += partial[t].u;
     }
     free(partial);
     return s;
