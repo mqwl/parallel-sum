@@ -1,7 +1,6 @@
 #include "conf.h"
 #include <omp.h>
 
-
 static unsigned  _thread_pool_size = omp_get_num_procs();
 
 unsigned get_num_threads() {

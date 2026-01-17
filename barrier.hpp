@@ -1,11 +1,7 @@
 #pragma once
 
-#include <iostream>
-#include <thread>
-#include <vector>
 #include <mutex>
-#include <chrono>
-
+#include <condition_variable>
 // Люк - одноразовый барьер
 class Latch {
     public:
@@ -31,8 +27,6 @@ class Barrier {
         std::mutex m;
         std::condition_variable cv;
 };
-
-
 
 // ДРОССЕЛИРОВАНИЕ СЕМАФОРАМИ
 // Семафор открыт, пока к нему подходит не более n потоков

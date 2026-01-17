@@ -1,17 +1,12 @@
-#include <iostream>
 #include <thread>
 #include <vector>
-#include <mutex>
-#include <chrono>
-#include <condition_variable>
 #include "barrier.hpp"
 #include "conf.h"
-
 
 Latch::Latch(unsigned ps): pool_size(ps) {}
 
 void Latch::arrive_and_wait() {
-    std::unique_lock l{m};
+    std::unique_lock<std::mutex> l{m};
     if (++counter < pool_size) do
         cv.wait(l); while (counter < pool_size);
     else
@@ -21,7 +16,7 @@ void Latch::arrive_and_wait() {
 Barrier::Barrier(unsigned ps): pool_size(ps) {}
 
 void Barrier::arrive_and_wait() {
-    std::unique_lock l{m};
+    std::unique_lock<std::mutex> l{m};
     if (++counter < pool_size) {
         bool my_barrier = current_instance;
         do {
@@ -36,7 +31,7 @@ void Barrier::arrive_and_wait() {
 }
 
 void Semaphore::acquire() {
-    std::unique_lock l{m};
+    std::unique_lock<std::mutex> l{m};
     passed++;
     while (passed >= max_threads) {
         cv.wait(l);
@@ -44,21 +39,20 @@ void Semaphore::acquire() {
 }
 
 void Semaphore::release() {
-    std::unique_lock l{m};
+    std::unique_lock<std::mutex> l{m};
     passed--;
     cv.notify_one();
 }
 
 std::pair<size_t, size_t> get_subvector(size_t n, unsigned t, unsigned T) {
     size_t s, b, e;
-    if (t < n % T)
-        s = n / T + 1;
-    else
-    s = n / T;
-    if (t <= n % T)
-        b = t * (n / T + 1);
-    else
-        b = t * (n / T) + (n % T);
+
+    if (t < n % T) s = n / T + 1;
+    else s = n / T;
+
+    if (t <= n % T) b = t * (n / T + 1);
+    else b = t * (n / T) + (n % T);
+    
     e = b + s;
     return {b, e};
 }

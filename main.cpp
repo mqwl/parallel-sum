@@ -2,14 +2,10 @@
 #include <chrono>
 #include <iostream>
 #include <vector>
-#include <thread>
-#include <iomanip>
-#include <condition_variable>
-#include "loc.hpp"
-#include "sums.h"
 #include "barrier.hpp"
 #include "conf.h"
-
+#include "loc.hpp"
+#include "sums.h"
 
 #define SUM_COMMAND(NAME)   { #NAME, sum_ ## NAME }
 
@@ -25,7 +21,7 @@ struct exp_result {
 	unsigned T, result;
 };
 
-auto generate (size_t n) {
+auto generate(size_t n) {
 	std::vector<unsigned> v(n);
 	for (size_t i = 0; i < n; ++i)
 		v[i] = i;

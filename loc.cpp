@@ -1,11 +1,7 @@
-#include <iostream>
 #include <thread>
 #include <vector>
 #include <mutex>
-#include <chrono>
 #include "loc.hpp"
-#include "conf.h"
-
 
 unsigned sum_loc (const unsigned* V, size_t n) {
     unsigned T = std::thread::hardware_concurrency();

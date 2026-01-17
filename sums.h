@@ -3,7 +3,6 @@
 #include <vector>
 #include <iomanip>
 #include <iostream>
-#include <chrono>
 #include <omp.h>
 #include "conf.h"
 
