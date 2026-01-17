@@ -4,9 +4,7 @@
 #include <mutex>
 #include <chrono>
 #include "loc.hpp"
-union partial_t {
 
-};
 
 unsigned sum_loc (const unsigned* V, size_t n) {
     unsigned T = std::thread::hardware_concurrency();

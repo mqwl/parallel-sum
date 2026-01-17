@@ -3,7 +3,6 @@
 #include <omp.h>
 #include <stdlib.h>
 #include "sums.h"
-#define CACHE_SIZE 64 // в <thread> есть std::hardware_destructive_interference_size
 
 unsigned sum_seq(const unsigned* V, size_t n) {
     unsigned res = 0;
@@ -61,9 +60,6 @@ unsigned sum_rr_fs(const unsigned* V, size_t n) {
     return s;
 }
 
-struct partial_t {
-    alignas(CACHE_SIZE) unsigned u;
-};
 unsigned sum_rr_fs2(const unsigned* V, size_t n) {
     struct partial_t* partial;
     unsigned T;
@@ -79,11 +75,11 @@ unsigned sum_rr_fs2(const unsigned* V, size_t n) {
         for (size_t i = t; i < n; i += T) {
             nn += V[i];
         }
-        partial[t].u = nn;
+        partial[t].v = nn;
     }
     unsigned s = 0;
     for (size_t t = 0; t < T; ++t) {
-        s += partial[t].u;
+        s += partial[t].v;
     }
     free(partial);
     return s;
